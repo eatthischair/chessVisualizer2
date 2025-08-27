@@ -35,7 +35,9 @@ const ImportGame = ({ pgnInput, readPgn, pgnValid, currentPgn }) => {
                 {!pgnValid || pgnValid === undefined ? (
                   <div className="text-red-600 text-sm">Cannot parse PGN</div>
                 ) : (
-                  ''
+                  <div className="text-green-600 text-sm">
+                    Game imported successfully!
+                  </div>
                 )}
               </div>
               <Textarea
