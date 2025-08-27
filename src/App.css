@@ -1,0 +1,104 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.cell {
+  transition: background-color 1.5s ease, opacity 1200ms;
+  border-style: solid;
+  width: var(--sqWidth);
+  height: var(--sqWidth);
+  float: left;
+}
+
+.nullSquare {
+  transition: background-color 0.6s ease-out;
+
+  background-color: #feffd7b5;
+}
+.lightSquare {
+  background-color: #feffd7;
+}
+.darkSquare {
+  background-color: #feffd9f5;
+}
+.whiteSquare1 {
+  background-color: #ffdef5;
+}
+.whiteSquare2 {
+  background-color: #ffbcde;
+}
+.whiteSquare3 {
+  background-color: #fe9ac6;
+}
+.whiteSquare4 {
+  background-color: #fe78af;
+}
+.whiteSquare5 {
+  background-color: #fd5697;
+}
+.whiteSquare6 {
+  background-color: #fd3480;
+}
+.whiteSquare7 {
+  background-color: #fc1268;
+}
+.blackSquare1 {
+  background-color: #bad5ff;
+}
+.blackSquare2 {
+  background-color: #a1bcff;
+}
+.blackSquare3 {
+  background-color: #87a3ff;
+}
+.blackSquare4 {
+  background-color: #6e8bff;
+}
+.blackSquare5 {
+  background-color: #5472ff;
+}
+.blackSquare6 {
+  background-color: #3b59ff;
+}
+.blackSquare7 {
+  background-color: #2140ff;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
