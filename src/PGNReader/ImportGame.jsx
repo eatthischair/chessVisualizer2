@@ -15,16 +15,21 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-const ImportGame = ({ pgnInput, readPgn, pgnValid, currentPgn }) => {
-  const [showMessage, setShowMessage] = useState(true);
-
+const ImportGame = ({
+  pgnInput,
+  readPgn,
+  pgnValid,
+  currentPgn,
+  setPgnValid,
+}) => {
+  const [showMessage, setShowMessage] = useState(false);
   useEffect(() => {
     if (pgnValid !== undefined) {
       setShowMessage(true);
       const timer = setTimeout(() => {
         setShowMessage(false);
+        setPgnValid(undefined);
       }, 3000);
-
       return () => clearTimeout(timer);
     }
   }, [pgnValid]);
