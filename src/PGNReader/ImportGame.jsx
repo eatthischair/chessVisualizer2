@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 
@@ -15,6 +16,19 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
 const ImportGame = ({ pgnInput, readPgn, pgnValid, currentPgn }) => {
+  const [showMessage, setShowMessage] = useState(true);
+
+  useEffect(() => {
+    if (pgnValid !== undefined) {
+      setShowMessage(true);
+      const timer = setTimeout(() => {
+        setShowMessage(false);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [pgnValid]);
+
   return (
     <Dialog>
       <form>
@@ -32,12 +46,18 @@ const ImportGame = ({ pgnInput, readPgn, pgnValid, currentPgn }) => {
             <div className="grid gap-3">
               <Label htmlFor="pgn-1">Pgn Text</Label>
               <div>
-                {!pgnValid || pgnValid === undefined ? (
-                  <div className="text-red-600 text-sm">Cannot parse PGN</div>
-                ) : (
-                  <div className="text-green-600 text-sm">
-                    Game imported successfully!
-                  </div>
+                {showMessage && (
+                  <>
+                    {!pgnValid || pgnValid === undefined ? (
+                      <div className="text-red-600 text-sm">
+                        Cannot parse PGN
+                      </div>
+                    ) : (
+                      <div className="text-green-600 text-sm">
+                        Game imported successfully!
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
               <Textarea
