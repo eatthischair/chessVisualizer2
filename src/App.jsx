@@ -123,7 +123,7 @@ export default function App() {
         <main className="min-h-screen p-4">
           <div className="flex flex-col lg:flex-row lg:flex-wrap gap-4">
             {/* List Games */}
-            <div className="order-4 lg:order-1 lg:w-64 lg:flex-shrink-0 border-2 border-gray-200 p-4">
+            <div className="order-4 lg:order-1 lg:w-84 lg:flex-shrink-0 border-2 border-gray-200 p-4">
               <LeftSideBar readPgn={readPgn} />
             </div>
 
@@ -138,10 +138,9 @@ export default function App() {
             </div>
 
             {/* Pieces */}
-            <div className="order-3 lg:order-3 lg:w-64 lg:flex-shrink-0 border-2 border-red-200 p-4">
-            </div>
+            <div className="order-3 lg:order-3 lg:w-84 lg:flex-shrink-0 border-2 border-red-200 p-4"></div>
 
-            {/* Controls - full width on desktop */}
+            {/* Controls */}
             <div className="order-2 lg:order-4 lg:w-full border-2 border-red-200 p-4">
               <BottomBar
                 currentPgn={currentPgn}
@@ -153,7 +152,7 @@ export default function App() {
               />
             </div>
 
-            {/* Import - full width on desktop */}
+            {/* Import */}
             <div className="order-5 lg:order-5 lg:w-full border-2 border-red-200 p-4">
               <ImportGame
                 pgnInput={pgnInput}
