@@ -9,7 +9,7 @@ import useKeyboardNavigation from '../CustomHooks/UseKeyboardNavigation';
 
 const BottomBar = ({
   currentPgn,
-  setChessBoardPosition,
+  setChessPosition,
   getNextBoard,
   getPreviousBoard,
   getLastBoard,
@@ -17,22 +17,22 @@ const BottomBar = ({
 }) => {
   //arrow key event listeners
   const first = () => {
-    setChessBoardPosition(getFirstBoard());
+    setChessPosition(getFirstBoard());
   };
 
   const next = () => {
-    setChessBoardPosition(getNextBoard());
+    setChessPosition(getNextBoard());
   };
   const prev = () => {
-    setChessBoardPosition(getPreviousBoard());
+    setChessPosition(getPreviousBoard());
   };
   const last = () => {
-    setChessBoardPosition(getLastBoard());
+    setChessPosition(getLastBoard());
   };
   useKeyboardNavigation(next, prev, last, first);
 
   return (
-    <div className="gap-x-32 w-[100%] border-2 border-red-500 p-8">
+    <div className="gap-x-32 border-2 border-red-500 p-8">
       {currentPgn ? (
         <span className="border w-full h-full grid grid-cols-4">
           <span onClick={() => first()}>
