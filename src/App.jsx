@@ -8,17 +8,17 @@ import {
   matrixIndexToChessNotation,
   isWhiteSquare,
   boardToFen,
+  fenToBoard,
 } from './utils/PureFuncs.js';
 import { Chess } from 'chess.js';
 import ImportGame from './PGNReader/ImportGame';
 import PgnReader from './PGNReader/PgnReader.js';
 import BottomBar from './SideAndBottomBars/BottomBar';
-// import RightSidebar from './SideAndBottomBars/RightSideBar.jsx';
 import LeftSideBar from './SideAndBottomBars/LeftSideBar';
 import { UseBoardArray } from './CustomHooks/UseBoardArray';
 import { Header } from './Header';
 import ParsePlayerNames from './PGNReader/ParsePlayerNames.js';
-import { initialBoardFEN } from './utils/Constants.js';
+import { initialBoardFEN, squareColors } from './utils/Constants.js';
 
 export default function App() {
   //-----------------------/// game state
@@ -52,6 +52,7 @@ export default function App() {
   };
 
   const readPgn = pgn => {
+    //set all states for displaying a game
     let { boardArray, pgnIsValid } = PgnReader(pgn);
     setCurrentPgn(pgn);
     setPgnValid(pgnIsValid);
@@ -93,20 +94,51 @@ export default function App() {
     onPieceDrop,
   };
 
+  console.log('options', chessboardOptions);
+  useEffect(() => {
+    // console.log('ee', chessPosition, 'aa', fenToBoard(chessPosition));
+    let board = fenToBoard(chessPosition);
+    let colorMatrix = calcSqs(blackCtrlOn, whiteCtrlOn, board, boardIsFlipped);
+    let clone = structuredClone(squareStyles);
+    // console.log('clone', clone);
+    document.startViewTransition(() => {
+      colorMatrix.forEach((row, i) => {
+        row.forEach((value, j) => {
+          let square = matrixIndexToChessNotation(i, j);
+
+          let str = '';
+          if (value >= 1) {
+            str = `whiteSquare${value}`;
+          } else if (value <= -1) {
+            str = `blackSquare${value * -1}`;
+          } else {
+            const coords = isWhiteSquare([i, j]);
+            str = coords;
+          }
+
+          clone[square] = {
+            background: squareColors[str],
+            transition: 'background-color 2s ease, opacity 1200ms',
+          };
+        });
+      });
+      setSquareStyles(clone);
+    });
+  }, [chessPosition]);
   return (
     <div className="">
       <Header playerNames={playerNames}></Header>
 
-      <main className="grid grid-cols-2 !gap-0">
+      <main className=" flex border">
         <aside className=" ">
           <LeftSideBar readPgn={readPgn} />
         </aside>
-        <div className="border w-78 ">
+        <div className=" border max-w-[500px] max-h-[500px] ">
           <Chessboard options={chessboardOptions} />
         </div>
       </main>
 
-      <div className="grid gap-x-32">
+      <div className="">
         <ImportGame
           pgnInput={setCurrentPgn}
           readPgn={readPgn}

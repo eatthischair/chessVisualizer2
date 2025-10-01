@@ -111,13 +111,4 @@ export const calcSqs = (
     }
   }
   return colorMatrix;
-  // return (
-  //   <div className="flex place-content-center">
-  //     <RenderBoard
-  //       currentBoard={currentBoard}
-  //       colorMatrix={colorMatrix}
-  //       boardIsFlipped={boardIsFlipped}
-  //     />
-  //   </div>
-  // );
 };

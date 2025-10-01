@@ -73,3 +73,38 @@ export const boardToFen = (board, moveNum) => {
   const finalFEN = `${fen} ${whoseTurn} - - 0 1`;
   return finalFEN;
 };
+
+export function fenToBoard(fenString) {
+  // Extract just the board position (first part before the space)
+  const boardPart = fenString.split(' ')[0];
+
+  // Split into rows
+  const rows = boardPart.split('/');
+
+  // Track piece counts for each type
+  const pieceCounts = {};
+
+  const board = rows.map(row => {
+    const rowArray = [];
+
+    for (let char of row) {
+      // If it's a number, add that many empty squares
+      if (!isNaN(char)) {
+        for (let i = 0; i < parseInt(char); i++) {
+          rowArray.push(0);
+        }
+      } else {
+        // It's a piece - add it with a count
+        if (!pieceCounts[char]) {
+          pieceCounts[char] = 0;
+        }
+        pieceCounts[char]++;
+        rowArray.push(`${char}${pieceCounts[char]}`);
+      }
+    }
+
+    return rowArray;
+  });
+
+  return board;
+}
