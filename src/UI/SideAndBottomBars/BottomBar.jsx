@@ -6,7 +6,12 @@ import {
   faForwardFast,
 } from '@fortawesome/free-solid-svg-icons';
 import useKeyboardNavigation from '../../Hooks/UseKeyboardNavigation';
-
+import {
+  ChevronFirst,
+  ChevronLast,
+  ChevronLeft,
+  ChevronRight,
+} from 'lucide-react';
 const BottomBar = ({
   currentPgn,
   setChessPosition,
@@ -32,20 +37,20 @@ const BottomBar = ({
   useKeyboardNavigation(next, prev, last, first);
 
   return (
-    <div className="gap-x-32 p-8">
+    <div className="flex justify-center p-4">
       {currentPgn ? (
-        <span className="border w-full h-full grid grid-cols-4">
+        <span className=" flex gap-32">
           <span onClick={() => first()}>
-            <FontAwesomeIcon icon={faBackwardFast} size="xl" />
+            <ChevronFirst color="var(--text)" />
           </span>
           <span onClick={() => prev()}>
-            <FontAwesomeIcon icon={faBackwardStep} size="xl" />
+            <ChevronLeft color="var(--text)" />
           </span>
           <span onClick={() => next()}>
-            <FontAwesomeIcon icon={faForwardStep} size="xl" />
+            <ChevronRight color="var(--text)" />
           </span>
           <span onClick={() => last()}>
-            <FontAwesomeIcon icon={faForwardFast} size="xl" />
+            <ChevronLast color="var(--text)" />
           </span>
         </span>
       ) : (

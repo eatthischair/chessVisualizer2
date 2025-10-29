@@ -32,28 +32,28 @@ const CallRecurse = (
   let nextBoard;
 
   //for whatever reason this breaks when imported from ../utils/Constants even though console.logs confirm its the same
-  // const recurseCallObj = {
-  //   B: {
-  //     NE: [
-  //       [1, -1],
-  //       [-1, 1],
-  //     ],
-  //     NW: [
-  //       [1, 1],
-  //       [-1, -1],
-  //     ],
-  //   },
-  //   R: {
-  //     N: [
-  //       [1, 0],
-  //       [-1, 0],
-  //     ],
-  //     W: [
-  //       [0, -1],
-  //       [0, 1],
-  //     ],
-  //   },
-  // };
+  const recurseCallObj = {
+    B: {
+      NE: [
+        [1, -1],
+        [-1, 1],
+      ],
+      NW: [
+        [1, 1],
+        [-1, -1],
+      ],
+    },
+    R: {
+      N: [
+        [1, 0],
+        [-1, 0],
+      ],
+      W: [
+        [0, -1],
+        [0, 1],
+      ],
+    },
+  };
 
   let pinnedPieces = checkForAbsolutePin(board, calcForWhite, recurseCallObj);
   let pinnedPiecesIndices = pinnedPieces.map(piece => piece.pinnedPieceIndex);

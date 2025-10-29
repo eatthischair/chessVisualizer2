@@ -32,6 +32,8 @@
     "src/CustomHooks/components",
     "--UNUSED/vite-env.d.ts",
     "--UNUSED/vite-env.d.ts",
-    "--UNUSED/getPos.jsx"
+    "--UNUSED/getPos.jsx",
+    "--UNUSED/processChessBoard.js",
+    "--UNUSED/UseMousePosition.jsx"
   ]
 }

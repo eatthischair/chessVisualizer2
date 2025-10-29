@@ -19,12 +19,14 @@ const ImportGame = ({ pgnInput, readPgn, pgnValid, currentPgn }) => {
     <Dialog>
       <form>
         <DialogTrigger asChild>
-          <GhostButton className={'!justify-center'}>Import Game</GhostButton>
+          <GhostButton className={'!justify-center !h-8 !items-center'}>
+            Import Game
+          </GhostButton>
         </DialogTrigger>
         <DialogContent className="!bg-transparent backdrop-blur-xl">
           <DialogHeader>
             <DialogTitle>Import Game</DialogTitle>
-            <DialogDescription>
+            <DialogDescription className="text-white">
               Import one of your own games, or from a database
             </DialogDescription>
           </DialogHeader>
@@ -39,9 +41,10 @@ const ImportGame = ({ pgnInput, readPgn, pgnValid, currentPgn }) => {
                 )}
               </div>
               <Textarea
+                className="placeholder-white"
                 id="pgn-1"
                 name="username"
-                placeholder="e4 e5 Nf3..."
+                placeholder="1.e4 e5 2.Nf3..."
                 onChange={e => pgnInput(e)}
               />
             </div>

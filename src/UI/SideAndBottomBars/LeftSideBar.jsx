@@ -1,6 +1,6 @@
 import ParsePlayerNames from '../../PGNReader/ParsePlayerNames.js';
 import { SelectedGames } from '../../utils/selectedGames.js';
-import { GhostButton } from '../../components/ui/GhostButton';
+import { GhostButton } from '../../components/ui/GhostButton.jsx';
 const LeftSideBar = ({ readPgn }) => {
   return (
     <div className="flex justify-center h-[520px] m-0">

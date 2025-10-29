@@ -2,6 +2,7 @@ import './App.css';
 import { Chessboard } from 'react-chessboard';
 import { Chess } from 'chess.js';
 import { useEffect, useState, useMemo, useRef } from 'react';
+//Game Logic
 import { calcSqs } from './ColorCalculations/calcSqs.js';
 import {
   squareToMatrixIndex,
@@ -13,9 +14,11 @@ import {
   squareColors,
 } from './utils';
 import { ImportGame, PgnReader, ParsePlayerNames } from './PGNReader';
+import { UseBoardArray } from './Hooks/UseBoardArray';
+import { UseUpdateColors } from './Hooks/UseUpdateColors';
+import { handlePieceDrop } from './utils/GameLogic/handlePieceDrop.js';
+//UI
 import { BottomBar, LeftSideBar, RightSideBar } from './UI/SideAndBottomBars';
-
-import { UseBoardArray } from './Hooks/UseBoardArray.jsx';
 import { Header } from './UI/Header/Header.jsx';
 
 export default function App() {
@@ -56,29 +59,18 @@ export default function App() {
     setPgnValid(pgnIsValid);
     setPlayerNames(ParsePlayerNames(pgn));
     setChessPosition(initialBoardFEN);
-    boardToFen(boardArray[10], 11);
     const fenArray = boardArray.map((board, index) => boardToFen(board, index));
     setBoardArray(fenArray);
     updateBoardArray(fenArray);
-    console.log('readpgn', boardArray, fenArray);
   };
 
-  function onPieceDrop({ sourceSquare, targetSquare }) {
-    if (!targetSquare) {
-      return false;
-    }
-    try {
-      chessGame.move({
-        from: sourceSquare,
-        to: targetSquare,
-        promotion: 'q',
-      });
-      setChessPosition(chessGame.fen());
-      return true;
-    } catch {
-      return false;
-    }
-  }
+  const onPieceDrop = ({ sourceSquare, targetSquare }) =>
+    handlePieceDrop({
+      sourceSquare,
+      targetSquare,
+      chessGame,
+      setChessPosition,
+    });
 
   const [squareStyles, setSquareStyles] = useState({});
 
@@ -141,7 +133,7 @@ export default function App() {
       </main>
 
       <div className="">
-        <div className="flex justify-center">
+        <div className="flex justify-center ">
           <ImportGame
             pgnInput={setCurrentPgn}
             readPgn={readPgn}
@@ -149,14 +141,14 @@ export default function App() {
             pgnValid={pgnValid}
           />
         </div>
-        {/* <BottomBar
-        currentPgn={currentPgn}
-        setChessPosition={setChessPosition}
-        getNextBoard={getNextBoard}
-        getPreviousBoard={getPreviousBoard}
-        getFirstBoard={getFirstBoard}
-        getLastBoard={getLastBoard}
-      /> */}
+        <BottomBar
+          currentPgn={currentPgn}
+          setChessPosition={setChessPosition}
+          getNextBoard={getNextBoard}
+          getPreviousBoard={getPreviousBoard}
+          getFirstBoard={getFirstBoard}
+          getLastBoard={getLastBoard}
+        />
       </div>
     </div>
   );

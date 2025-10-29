@@ -11,3 +11,17 @@
     }
   }
 }
+
+// {
+//   "compilerOptions": {
+//     "target": "ESNext",
+//     "module": "ESNext",
+//     "jsx": "react-jsx",
+//     "baseUrl": "./src",
+//     "paths": {
+//       "@/*": ["*"]
+//     }
+//   },
+//   "include": ["src"]
+// }
+//possible auto imports. try later.

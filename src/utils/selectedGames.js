@@ -1,3 +1,4 @@
+//Inconsistency between single and double quotes for PGN makes using a JSON file impractical
 export const SelectedGames = [
   `[Event "Paris"]
   [Site "Paris FRA"]
