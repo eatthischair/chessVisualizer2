@@ -1,13 +1,13 @@
-import { isInBounds } from '../utils/PureFuncs';
+import { isInBounds } from '../utils/pureFuncs';
 import checkForAbsolutePin from './checkForAbsolutePin';
-import { emptyMatrix } from '../utils/Constants';
+import { emptyMatrix } from '../utils/constants';
 import {
   kingSqVals,
   knightSqVals,
   whitePawnVals,
   blackPawnVals,
   recurseCallObj,
-} from '../utils/Constants';
+} from '../utils/constants';
 
 const CalcSqsPerSide = (positionBoard, calcForWhite) => {
   //each Vals array corresponds to the X and Y increment values a piece can move to from the square it is currently placed. Kings, Knights, and Pawns have static values while Queens, Rooks and Bishops can be blocked

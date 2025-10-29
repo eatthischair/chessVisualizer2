@@ -1,5 +1,5 @@
 import callRecurse from './CallRecurse';
-import { initialBoard } from '../utils/Constants';
+import { initialBoard } from '../utils/constants';
 const PgnReader = pgn => {
   let cleanPgn = pgn.split('');
 

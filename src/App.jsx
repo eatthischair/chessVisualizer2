@@ -1,24 +1,22 @@
 import './App.css';
 import { Chessboard } from 'react-chessboard';
+import { Chess } from 'chess.js';
 import { useEffect, useState, useMemo, useRef } from 'react';
-import { squareToMatrixIndex } from './utils/squareToMatrix';
-import { processChessBoard } from './utils/processChessBoard';
-import { calcSqs } from './ColorCalcFunctions/calcSqs';
+import { calcSqs } from './ColorCalculations/calcSqs.js';
 import {
+  squareToMatrixIndex,
   matrixIndexToChessNotation,
   isWhiteSquare,
   boardToFen,
   fenToBoard,
-} from './utils/PureFuncs.js';
-import { Chess } from 'chess.js';
-import ImportGame from './PGNReader/ImportGame';
-import PgnReader from './PGNReader/PgnReader.js';
-import BottomBar from './SideAndBottomBars/BottomBar';
-import LeftSideBar from './SideAndBottomBars/LeftSideBar';
-import { UseBoardArray } from './CustomHooks/UseBoardArray';
-import { Header } from './Header';
-import ParsePlayerNames from './PGNReader/ParsePlayerNames.js';
-import { initialBoardFEN, squareColors } from './utils/Constants.js';
+  initialBoardFEN,
+  squareColors,
+} from './utils';
+import { ImportGame, PgnReader, ParsePlayerNames } from './PGNReader';
+import { BottomBar, LeftSideBar, RightSideBar } from './UI/SideAndBottomBars';
+
+import { UseBoardArray } from './Hooks/UseBoardArray.jsx';
+import { Header } from './UI/Header/Header.jsx';
 
 export default function App() {
   //-----------------------/// game state
@@ -82,11 +80,7 @@ export default function App() {
     }
   }
 
-  const [squareStyles, setSquareStyles] = useState({
-    e4: {
-      backgroundColor: 'rgba(255,0,0,0.2)',
-    },
-  });
+  const [squareStyles, setSquareStyles] = useState({});
 
   const chessboardOptions = {
     position: chessPosition,
@@ -94,65 +88,75 @@ export default function App() {
     onPieceDrop,
   };
 
-  console.log('options', chessboardOptions);
   useEffect(() => {
-    // console.log('ee', chessPosition, 'aa', fenToBoard(chessPosition));
     let board = fenToBoard(chessPosition);
     let colorMatrix = calcSqs(blackCtrlOn, whiteCtrlOn, board, boardIsFlipped);
     let clone = structuredClone(squareStyles);
-    // console.log('clone', clone);
-    document.startViewTransition(() => {
-      colorMatrix.forEach((row, i) => {
-        row.forEach((value, j) => {
-          let square = matrixIndexToChessNotation(i, j);
 
-          let str = '';
-          if (value >= 1) {
-            str = `whiteSquare${value}`;
-          } else if (value <= -1) {
-            str = `blackSquare${value * -1}`;
-          } else {
-            const coords = isWhiteSquare([i, j]);
-            str = coords;
-          }
+    // document.startViewTransition(() => {
+    colorMatrix.forEach((row, i) => {
+      row.forEach((value, j) => {
+        let square = matrixIndexToChessNotation(i, j);
 
-          clone[square] = {
-            background: squareColors[str],
-            transition: 'background-color 2s ease, opacity 1200ms',
-          };
-        });
+        let str = '';
+        if (value >= 1) {
+          str = `whiteSquare${value}`;
+        } else if (value <= -1) {
+          str = `blackSquare${value * -1}`;
+        } else {
+          const coords = isWhiteSquare([i, j]);
+          str = coords;
+        }
+
+        clone[square] = {
+          background: squareColors[str],
+          transition: 'background-color 2s ease, opacity 1200ms',
+        };
       });
-      setSquareStyles(clone);
     });
+    setSquareStyles(clone);
+    // });
   }, [chessPosition]);
-  return (
-    <div className="">
-      <Header playerNames={playerNames}></Header>
 
-      <main className=" flex border">
-        <aside className=" ">
+  return (
+    <div className="border-2 p-2 ">
+      <div className="p-2 border">
+        <Header playerNames={playerNames} />
+      </div>
+      <main className="flex justify-center p-4">
+        <aside className="border-2">
           <LeftSideBar readPgn={readPgn} />
         </aside>
-        <div className=" border max-w-[500px] max-h-[500px] ">
+        <div className=" border max-w-[500px] max-h-[500px] border-blue-200 p-4">
           <Chessboard options={chessboardOptions} />
         </div>
+        <RightSideBar
+          setWhiteCtrlOn={setWhiteCtrlOn}
+          whiteCtrlOn={whiteCtrlOn}
+          setBlackCtrlOn={setBlackCtrlOn}
+          blackCtrlOn={blackCtrlOn}
+          setBoardIsFlipped={setBoardIsFlipped}
+          boardIsFlipped={boardIsFlipped}
+        />
       </main>
 
       <div className="">
-        <ImportGame
-          pgnInput={setCurrentPgn}
-          readPgn={readPgn}
-          currentPgn={currentPgn}
-          pgnValid={pgnValid}
-        />
-        <BottomBar
-          currentPgn={currentPgn}
-          setChessPosition={setChessPosition}
-          getNextBoard={getNextBoard}
-          getPreviousBoard={getPreviousBoard}
-          getFirstBoard={getFirstBoard}
-          getLastBoard={getLastBoard}
-        />
+        <div className="flex justify-center">
+          <ImportGame
+            pgnInput={setCurrentPgn}
+            readPgn={readPgn}
+            currentPgn={currentPgn}
+            pgnValid={pgnValid}
+          />
+        </div>
+        {/* <BottomBar
+        currentPgn={currentPgn}
+        setChessPosition={setChessPosition}
+        getNextBoard={getNextBoard}
+        getPreviousBoard={getPreviousBoard}
+        getFirstBoard={getFirstBoard}
+        getLastBoard={getLastBoard}
+      /> */}
       </div>
     </div>
   );

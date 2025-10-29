@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { initialBoardFEN } from '../utils/Constants.js';
+import { initialBoardFEN } from '../utils/constants.js';
 
 export const UseBoardArray = () => {
   const boardArrayStorage = useRef(null);

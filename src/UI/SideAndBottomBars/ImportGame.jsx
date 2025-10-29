@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-
 import {
   Dialog,
   DialogClose,
@@ -13,15 +12,16 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { GhostButton } from '../../components/ui/GhostButton';
 
 const ImportGame = ({ pgnInput, readPgn, pgnValid, currentPgn }) => {
   return (
     <Dialog>
       <form>
         <DialogTrigger asChild>
-          <Button variant="outline">Import Game</Button>
+          <GhostButton className={'!justify-center'}>Import Game</GhostButton>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="!bg-transparent backdrop-blur-xl">
           <DialogHeader>
             <DialogTitle>Import Game</DialogTitle>
             <DialogDescription>
@@ -47,7 +47,11 @@ const ImportGame = ({ pgnInput, readPgn, pgnValid, currentPgn }) => {
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit" onClick={() => readPgn(currentPgn)}>
+            <Button
+              type="submit"
+              onClick={() => readPgn(currentPgn)}
+              className="!bg-transparent backdrop-blur"
+            >
               Save changes
             </Button>
           </DialogFooter>

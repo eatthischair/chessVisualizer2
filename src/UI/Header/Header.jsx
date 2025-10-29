@@ -1,4 +1,5 @@
 export const Header = ({ playerNames }) => {
+  console.log('playernames', playerNames);
   return (
     <div className="flex justify-center">
       <h1 className="flex justify-center body-font font-GreatVibes text-6xl mt-4">

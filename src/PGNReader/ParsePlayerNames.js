@@ -7,7 +7,7 @@ const ParsePlayerNames = pgn => {
     let endIndex = sliced.indexOf(`]`);
     var whitePlayerName = pgn.slice(
       whiteIndex + 7,
-      whiteIndex + 7 + endIndex - 1,
+      whiteIndex + 7 + endIndex - 1
     );
   } else {
     whitePlayerName = 'NN';
@@ -18,7 +18,7 @@ const ParsePlayerNames = pgn => {
     let endIndex = sliced.indexOf(`]`);
     var blackPlayerName = pgn.slice(
       blackIndex + 7,
-      blackIndex + 7 + endIndex - 1,
+      blackIndex + 7 + endIndex - 1
     );
   } else {
     blackPlayerName = 'NN';

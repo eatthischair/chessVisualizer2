@@ -1,4 +1,4 @@
-import {isInBounds} from '../utils/PureFuncs';
+import { isInBounds } from '../utils/pureFuncs';
 
 const moveBRandQ = (
   index,
@@ -7,7 +7,7 @@ const moveBRandQ = (
   type,
   slice,
   pinnedPiecesIndices,
-  pinnedPieces,
+  pinnedPieces
 ) => {
   slice = JSON.parse(JSON.stringify(slice));
 

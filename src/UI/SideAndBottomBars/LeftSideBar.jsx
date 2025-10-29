@@ -1,6 +1,6 @@
-import ParsePlayerNames from '../PGNReader/ParsePlayerNames.js';
-import { SelectedGames } from '../utils/selectedGames.js';
-
+import ParsePlayerNames from '../../PGNReader/ParsePlayerNames.js';
+import { SelectedGames } from '../../utils/selectedGames.js';
+import { GhostButton } from '../../components/ui/GhostButton';
 const LeftSideBar = ({ readPgn }) => {
   return (
     <div className="flex justify-center h-[520px] m-0">
@@ -11,15 +11,15 @@ const LeftSideBar = ({ readPgn }) => {
           </div>
         </div>
         {SelectedGames.map((game, index) => (
-          <div
+          <GhostButton
             key={game}
             onClick={() => {
               readPgn(game);
             }}
-            className=" text-slate-300 justify-start gap-0 content-center py-2 px-4 bg-inherit font-semibold rounded-lg shadow-sm hover:bg-gray-700/50 focus:outline-none hover:text-slate-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75 text-sm ml-1 h-16 w-52;shadow-md"
+            className="!justify-start !items-center"
           >
             {ParsePlayerNames(game)}
-          </div>
+          </GhostButton>
         ))}
       </div>
     </div>

@@ -1,5 +1,5 @@
 /* eslint-disable no-loop-func */
-import {isInBounds} from '../utils/PureFuncs';
+import { isInBounds } from '../utils/pureFuncs';
 
 //this function iterates from the kings location in all cardinal directions to check if there is a piece standing between it and an attacker i.e. sandwiched. If so, the 'sandwiched' piece is 'pinned' (cannot move) except in the direction it is pinned, its location is recorded, and its movement will not be calculated in calcSqsPerSide EXCEPT in the direction it can still move in.
 const CheckForAbsolutePin = (currentBoard, calcForWhite, recurseCallObj) => {
@@ -23,7 +23,7 @@ const CheckForAbsolutePin = (currentBoard, calcForWhite, recurseCallObj) => {
     pieceisSandwiched,
     sandwichedPieceIndex,
     checkType,
-    checkDirection,
+    checkDirection
   ) => {
     var newIndex = [index[0] + incrementY, index[1] + incrementX];
     if (!isInBounds(newIndex[0], newIndex[1])) return;
@@ -44,7 +44,7 @@ const CheckForAbsolutePin = (currentBoard, calcForWhite, recurseCallObj) => {
             true,
             newIndex,
             checkType,
-            checkDirection,
+            checkDirection
           );
         } else {
           return;
@@ -83,7 +83,7 @@ const CheckForAbsolutePin = (currentBoard, calcForWhite, recurseCallObj) => {
         pieceisSandwiched,
         sandwichedPieceIndex,
         checkType,
-        checkDirection,
+        checkDirection
       );
     }
   };
@@ -100,7 +100,7 @@ const CheckForAbsolutePin = (currentBoard, calcForWhite, recurseCallObj) => {
             false,
             null,
             checkType,
-            checkDirection,
+            checkDirection
           );
         }
       });

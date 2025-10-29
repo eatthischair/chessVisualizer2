@@ -1,4 +1,4 @@
-import {isInBounds} from '../utils/PureFuncs';
+import { isInBounds } from '../utils/pureFuncs';
 
 const movePawnKnightandKing = (
   index,
@@ -10,7 +10,7 @@ const movePawnKnightandKing = (
   currentColumn,
   pawnColumn,
   isEnPassant,
-  pinnedPiecesIndices,
+  pinnedPiecesIndices
 ) => {
   slice = JSON.parse(JSON.stringify(slice));
   let pawnFound = false;
@@ -61,7 +61,7 @@ const queeningPawn = (
   slice,
   queenCount,
   pawnCaptureColumn,
-  promotedPiece,
+  promotedPiece
 ) => {
   slice = JSON.parse(JSON.stringify(slice));
   let [row, column] = coords;
@@ -82,7 +82,7 @@ const determinePawnVals = (
   currentIndex,
   slice,
   pawnId,
-  isEnPassant,
+  isEnPassant
 ) => {
   let pawnColumn = pawnId.charCodeAt(0) - 97;
   var pawnVals;
@@ -124,9 +124,9 @@ const determinePawnVals = (
     currentRow,
     currentColumn,
     pawnColumn,
-    isEnPassant,
+    isEnPassant
   );
   return slice;
 };
 
-export {movePawnKnightandKing, determinePawnVals, queeningPawn};
+export { movePawnKnightandKing, determinePawnVals, queeningPawn };

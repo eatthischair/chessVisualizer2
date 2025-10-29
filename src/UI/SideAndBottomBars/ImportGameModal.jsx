@@ -12,7 +12,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-export function DialogDemo() {
+function ImportGameModal() {
   return (
     <Dialog>
       <form>
@@ -48,3 +48,5 @@ export function DialogDemo() {
     </Dialog>
   );
 }
+
+export default ImportGameModal;

@@ -1,4 +1,4 @@
-import { pieceType, toMatrixCoords } from '../utils/PureFuncs';
+import { pieceType, chessNotationToMatrixCoords } from '../utils/pureFuncs.js';
 import moveBRandQ from './MoveBRandQ';
 import handleCastles from './HandleCastles';
 import handleCollisions from './HandleCollisions';
@@ -7,8 +7,13 @@ import {
   determinePawnVals,
   queeningPawn,
 } from './MovePNandK.js';
-import checkForAbsolutePin from '../ColorCalcFunctions/checkForAbsolutePin';
-import { kingSqVals, knightSqVals } from '../utils/Constants.js';
+import checkForAbsolutePin from '../ColorCalculations/checkForAbsolutePin.js';
+import {
+  kingSqVals,
+  knightSqVals,
+  recurseCallObj,
+} from '../utils/constants.js';
+
 const CallRecurse = (
   pgnItem,
   calcForWhite,
@@ -27,28 +32,28 @@ const CallRecurse = (
   let nextBoard;
 
   //for whatever reason this breaks when imported from ../utils/Constants even though console.logs confirm its the same
-  const recurseCallObj = {
-    B: {
-      NE: [
-        [1, -1],
-        [-1, 1],
-      ],
-      NW: [
-        [1, 1],
-        [-1, -1],
-      ],
-    },
-    R: {
-      N: [
-        [1, 0],
-        [-1, 0],
-      ],
-      W: [
-        [0, -1],
-        [0, 1],
-      ],
-    },
-  };
+  // const recurseCallObj = {
+  //   B: {
+  //     NE: [
+  //       [1, -1],
+  //       [-1, 1],
+  //     ],
+  //     NW: [
+  //       [1, 1],
+  //       [-1, -1],
+  //     ],
+  //   },
+  //   R: {
+  //     N: [
+  //       [1, 0],
+  //       [-1, 0],
+  //     ],
+  //     W: [
+  //       [0, -1],
+  //       [0, 1],
+  //     ],
+  //   },
+  // };
 
   let pinnedPieces = checkForAbsolutePin(board, calcForWhite, recurseCallObj);
   let pinnedPiecesIndices = pinnedPieces.map(piece => piece.pinnedPieceIndex);
@@ -59,7 +64,7 @@ const CallRecurse = (
 
   //the second conditional is only to prevent "0-0-0" from being handled by the collision and pawn queening functions
   if (pgnItem.length >= 4 && !pgnItem.includes('-')) {
-    coords = toMatrixCoords(coords);
+    coords = chessNotationToMatrixCoords(coords);
     let middleChar = pgnItem[1];
 
     //this means a pawn was promoted
@@ -73,7 +78,7 @@ const CallRecurse = (
       }
       let promotedPiece = pgnItem[pgnItem.indexOf('=') + 1];
       calcForWhite ? whitePieceCount++ : blackPieceCount++;
-      coords = toMatrixCoords(coords);
+      coords = chessNotationToMatrixCoords(coords);
       nextBoard = queeningPawn(
         calcForWhite,
         coords,
@@ -96,7 +101,7 @@ const CallRecurse = (
     //if the length is 3, it is either a 'normal' move like 'Nd7' or a pawn capture like 'ef4'
     pgnItem.length === 3 ? (isPawnCapture = true) : (isPawnCapture = false);
 
-    let matrixCoords = toMatrixCoords(coords);
+    let matrixCoords = chessNotationToMatrixCoords(coords);
     let type = piece.toUpperCase();
 
     let isEnPassant =
