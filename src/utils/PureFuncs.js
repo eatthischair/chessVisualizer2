@@ -75,6 +75,7 @@ export const boardToFen = (board, moveNum) => {
 };
 
 export function fenToBoard(fenString) {
+  console.log('fenstring', typeof fenString);
   const boardPart = fenString.split(' ')[0];
   const rows = boardPart.split('/');
   const pieceCounts = {};

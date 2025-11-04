@@ -12,13 +12,17 @@ import {
   fenToBoard,
   initialBoardFEN,
   squareColors,
-} from './utils';
-import { ImportGame, PgnReader, ParsePlayerNames } from './PGNReader';
-import { UseBoardArray } from './Hooks/UseBoardArray';
-import { UseUpdateColors } from './Hooks/UseUpdateColors';
+} from './utils/index.js';
+import { ImportGame, PgnReader, ParsePlayerNames } from './PGNReader/index.js';
+import { UseBoardArray } from './Hooks/UseBoardArray.jsx';
+import UseUpdateColors from './Hooks/UseUpdateColors.jsx';
 import { handlePieceDrop } from './utils/GameLogic/handlePieceDrop.js';
 //UI
-import { BottomBar, LeftSideBar, RightSideBar } from './UI/SideAndBottomBars';
+import {
+  BottomBar,
+  LeftSideBar,
+  RightSideBar,
+} from './UI/SideAndBottomBars/index.jsx';
 import { Header } from './UI/Header/Header.jsx';
 
 export default function App() {
@@ -80,35 +84,44 @@ export default function App() {
     onPieceDrop,
   };
 
-  useEffect(() => {
-    let board = fenToBoard(chessPosition);
-    let colorMatrix = calcSqs(blackCtrlOn, whiteCtrlOn, board, boardIsFlipped);
-    let clone = structuredClone(squareStyles);
+  UseUpdateColors(
+    setSquareStyles,
+    squareStyles,
+    blackCtrlOn,
+    whiteCtrlOn,
+    boardIsFlipped,
+    chessPosition
+  );
 
-    // document.startViewTransition(() => {
-    colorMatrix.forEach((row, i) => {
-      row.forEach((value, j) => {
-        let square = matrixIndexToChessNotation(i, j);
+  // useEffect(() => {
+  //   let board = fenToBoard(chessPosition);
+  //   let colorMatrix = calcSqs(blackCtrlOn, whiteCtrlOn, board, boardIsFlipped);
+  //   let clone = structuredClone(squareStyles);
 
-        let str = '';
-        if (value >= 1) {
-          str = `whiteSquare${value}`;
-        } else if (value <= -1) {
-          str = `blackSquare${value * -1}`;
-        } else {
-          const coords = isWhiteSquare([i, j]);
-          str = coords;
-        }
+  //   // document.startViewTransition(() => {
+  //   colorMatrix.forEach((row, i) => {
+  //     row.forEach((value, j) => {
+  //       let square = matrixIndexToChessNotation(i, j);
 
-        clone[square] = {
-          background: squareColors[str],
-          transition: 'background-color 2s ease, opacity 1200ms',
-        };
-      });
-    });
-    setSquareStyles(clone);
-    // });
-  }, [chessPosition]);
+  //       let str = '';
+  //       if (value >= 1) {
+  //         str = `whiteSquare${value}`;
+  //       } else if (value <= -1) {
+  //         str = `blackSquare${value * -1}`;
+  //       } else {
+  //         const coords = isWhiteSquare([i, j]);
+  //         str = coords;
+  //       }
+
+  //       clone[square] = {
+  //         background: squareColors[str],
+  //         transition: 'background-color 2s ease, opacity 1200ms',
+  //       };
+  //     });
+  //   });
+  //   setSquareStyles(clone);
+  //   // });
+  // }, [chessPosition]);
 
   return (
     <div className="border-2 p-2 ">
