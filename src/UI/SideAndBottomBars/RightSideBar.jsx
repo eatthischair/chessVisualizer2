@@ -5,6 +5,7 @@ import { Switch } from '../../components/ui/switch';
 import { GhostButton } from '../../components/ui/GhostButton';
 import { Label } from '../../components/ui/Label';
 import { SwitchDemo } from '../../components/ui/SwitchDemo';
+import { useEffect } from 'react';
 const RightSideBar = ({
   setWhiteCtrlOn,
   whiteCtrlOn,
@@ -13,6 +14,15 @@ const RightSideBar = ({
   setBoardIsFlipped,
   boardIsFlipped,
 }) => {
+  useEffect(() => {
+    const handleKeyDown = e => {
+      const keys = ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', ' '];
+      if (keys.includes(e.key)) e.preventDefault();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   return (
     <div className=" w-64 h-[400px] border-1 shadow-md">
       <ul className="">

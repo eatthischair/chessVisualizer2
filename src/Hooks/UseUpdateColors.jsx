@@ -34,13 +34,13 @@ export default function useUpdateColors(
           } else if (value <= -1) {
             str = `blackSquare${value * -1}`;
           } else {
-            const coords = isWhiteSquar e([i, j]);
+            const coords = isWhiteSquare([i, j]);
             str = coords;
           }
 
           clone[square] = {
             background: squareColors[str],
-            transition: 'background-color 2s ease, opacity 1200ms',
+            transition: 'background-color 1s ease, opacity 1200ms',
           };
         });
       });
