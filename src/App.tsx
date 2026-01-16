@@ -3,7 +3,7 @@ import { Chessboard } from 'react-chessboard';
 import { Chess } from 'chess.js';
 import { useEffect, useState, useMemo, useRef } from 'react';
 //Game Logic
-import { calcSqs } from './ColorCalculations/calcSqs.js';
+import { calcSqs } from './ColorCalculations/calcSqs';
 import {
   squareToMatrixIndex,
   matrixIndexToChessNotation,
@@ -12,18 +12,18 @@ import {
   fenToBoard,
   initialBoardFEN,
   squareColors,
-} from './utils/index.js';
-import { ImportGame, PgnReader, ParsePlayerNames } from './PGNReader/index.js';
-import { UseBoardArray } from './Hooks/UseBoardArray.jsx';
-import UseUpdateColors from './Hooks/UseUpdateColors.jsx';
-import { handlePieceDrop } from './utils/GameLogic/handlePieceDrop.js';
+} from './utils/index';
+import { ImportGame, PgnReader, ParsePlayerNames } from './PGNReader/index';
+import { UseBoardArray } from './Hooks/UseBoardArray';
+import UseUpdateColors from './Hooks/UseUpdateColors';
+import { handlePieceDrop } from './utils/GameLogic/handlePieceDrop';
 //UI
 import {
   BottomBar,
   LeftSideBar,
   RightSideBar,
-} from './UI/SideAndBottomBars/index.jsx';
-import { Header } from './UI/Header/Header.jsx';
+} from './UI/SideAndBottomBars/index';
+import { Header } from './UI/Header/Header';
 
 export default function App() {
   //-----------------------/// game state
@@ -47,6 +47,23 @@ export default function App() {
     removeBoardArray,
   } = UseBoardArray();
   //--------//
+
+  // In your component, temporarily
+  useEffect(() => {
+    const style = document.createElement('style');
+    style.textContent = `
+    ::view-transition {
+      pointer-events: auto !important;
+      background: red;
+    }
+  `;
+    document.head.appendChild(style);
+    return () => style.remove();
+  }, []);
+
+  useEffect(() => {
+    console.log('fucking stattes', blackCtrlOn, whiteCtrlOn, boardIsFlipped);
+  }, [blackCtrlOn, whiteCtrlOn, boardIsFlipped]);
 
   ///---PGN states---///
   const [currentPgn, setCurrentPgn] = useState('');
@@ -100,15 +117,18 @@ export default function App() {
   );
 
   return (
-    <div className="border-2 p-2 ">
-      <div className="p-2 border">
+    <div className=" p-2 ">
+      <div className="p-2">
         <Header playerNames={playerNames} />
       </div>
       <main className="flex justify-center p-4">
-        <aside className="border-2">
+        <aside className="rounded-lg shadow-lg">
           <LeftSideBar readPgn={readPgn} />
         </aside>
-        <div className=" border max-w-[500px] max-h-[500px] border-blue-200 p-4">
+        <div
+          className=" max-w-[550px] max-h-[550px] px-4"
+          style={{ viewTransitionName: 'chessboard-board' }}
+        >
           <Chessboard options={chessboardOptions} />
         </div>
         <RightSideBar

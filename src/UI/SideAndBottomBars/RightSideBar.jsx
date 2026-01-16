@@ -24,16 +24,16 @@ const RightSideBar = ({
   }, []);
 
   return (
-    <div className=" w-64 h-[400px] border-1 shadow-md">
+    <div className=" w-64 h-[400px] shadow-md">
       <ul className="">
         <GhostButton className="flex !items-center !space-x-2">
-          <SwitchDemo text={'White Squares'} />
+          <SwitchDemo text={'White Squares'} stateSwitch={setWhiteCtrlOn} />
         </GhostButton>
         <GhostButton className="flex !items-center !space-x-2">
-          <SwitchDemo text={'Black Squares'} />
+          <SwitchDemo text={'Black Squares'} stateSwitch={setBlackCtrlOn} />
         </GhostButton>
         <GhostButton className="flex !items-center !space-x-2">
-          <SwitchDemo text={'Flip Board'} />
+          <SwitchDemo text={'Flip Board'} stateSwitch={setBoardIsFlipped} />
         </GhostButton>
       </ul>
     </div>

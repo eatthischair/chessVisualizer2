@@ -1,12 +1,11 @@
 export const Header = ({ playerNames }) => {
-  // console.log('playernames', playerNames);
   return (
-    <div className="flex justify-center">
-      <h1 className="flex justify-center body-font font-GreatVibes text-6xl mt-4">
+    <div className="flex justify-center flex-col p-0 ">
+      <h1 className="flex justify-center body-font font-GreatVibes text-md ">
         Chess Visualizer
       </h1>
-      <div className="flex justify-center">
-        {playerNames ? playerNames : <br></br>}
+      <div className="flex justify-center text-lg min-h-8">
+        {playerNames ? playerNames : ''}
       </div>
     </div>
   );

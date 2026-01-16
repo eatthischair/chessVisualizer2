@@ -14,24 +14,28 @@ export default function useUpdateColors(
   boardIsFlipped,
   chessPosition
 ) {
-  console.log('useupdatecolors', arguments);
   useEffect(() => {
     if (!chessPosition) {
       return;
     }
-    let board = fenToBoard(chessPosition);
-    let colorMatrix = calcSqs(blackCtrlOn, whiteCtrlOn, board, boardIsFlipped);
-    let clone = structuredClone(squareStyles);
-
     document.startViewTransition(() => {
+      let board = fenToBoard(chessPosition);
+      let colorMatrix = calcSqs(
+        blackCtrlOn,
+        whiteCtrlOn,
+        board,
+        boardIsFlipped
+      );
+      let clone = structuredClone(squareStyles);
+
       colorMatrix.forEach((row, i) => {
         row.forEach((value, j) => {
           let square = matrixIndexToChessNotation(i, j);
 
           let str = '';
-          if (value >= 1) {
+          if (value >= 1 && whiteCtrlOn) {
             str = `whiteSquare${value}`;
-          } else if (value <= -1) {
+          } else if (value <= -1 && blackCtrlOn) {
             str = `blackSquare${value * -1}`;
           } else {
             const coords = isWhiteSquare([i, j]);
@@ -40,11 +44,10 @@ export default function useUpdateColors(
 
           clone[square] = {
             background: squareColors[str],
-            transition: 'background-color 1s ease, opacity 1200ms',
           };
         });
       });
       setSquareStyles(clone);
     });
-  }, [chessPosition]);
+  }, [chessPosition, blackCtrlOn, whiteCtrlOn, boardIsFlipped]);
 }

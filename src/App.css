@@ -1,4 +1,3 @@
-/* Imports */
 @import 'tailwindcss';
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 @import 'tw-animate-css';
@@ -9,6 +8,26 @@
   --font-display: 'Satoshi', sans-serif;
   --font-GreatVibes: 'Great Vibes', sans-serif;
 }
+
+/*
+OLD
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 2s;
+} */
+
+::view-transition {
+  pointer-events: auto !important;
+  background: red; /* If you see red flash, CSS is loading */
+}
+
+::view-transition-group(root) {
+  animation-duration: 0s;
+}
+::view-transition-group(chessboard-board) {
+  animation-duration: 2s;
+}
+
 
 /* Global Reset */
 html,
@@ -95,15 +114,9 @@ body,
   --sidebar-ring: oklch(0.705 0.015 286.067);
 }
 
-/* Animations */
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation-duration: 2s;
-}
-
 /* Chessboard Squares */
 .cell {
-  transition: background-color 1.2s ease, opacity 1200ms;
+  /* transition: background-color 1.2s ease, opacity 1200ms; */
   border-style: solid;
   width: var(--sqWidth);
   height: var(--sqWidth);
@@ -129,7 +142,7 @@ body,
 
 /* Miscellaneous */
 .logo {
-  height: 6em;
+  height: 4em;
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
@@ -194,13 +207,3 @@ button {
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 }
-
-/* Base Layer Styling
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-} */
