@@ -44,6 +44,7 @@ export default function useUpdateColors(
 
           clone[square] = {
             background: squareColors[str],
+            // transition: 'background-color 2s ease, opacity 1200ms',
           };
         });
       });

@@ -9,12 +9,6 @@
   --font-GreatVibes: 'Great Vibes', sans-serif;
 }
 
-/*
-OLD
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation-duration: 2s;
-} */
 
 ::view-transition {
   pointer-events: auto !important;
@@ -24,9 +18,10 @@ OLD
 ::view-transition-group(root) {
   animation-duration: 0s;
 }
-::view-transition-group(chessboard-board) {
+
+/* ::view-transition-group(aids) {
   animation-duration: 2s;
-}
+} */
 
 
 /* Global Reset */

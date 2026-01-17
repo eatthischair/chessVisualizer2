@@ -125,10 +125,7 @@ export default function App() {
         <aside className="rounded-lg shadow-lg">
           <LeftSideBar readPgn={readPgn} />
         </aside>
-        <div
-          className=" max-w-[550px] max-h-[550px] px-4"
-          style={{ viewTransitionName: 'chessboard-board' }}
-        >
+        <div className=" max-w-[550px] max-h-[550px] px-4 [view-transition-name:aids]">
           <Chessboard options={chessboardOptions} />
         </div>
         <RightSideBar
