@@ -27,7 +27,6 @@ export default function useUpdateColors(
         boardIsFlipped
       );
       let clone = structuredClone(squareStyles);
-
       colorMatrix.forEach((row, i) => {
         row.forEach((value, j) => {
           let square = matrixIndexToChessNotation(i, j);

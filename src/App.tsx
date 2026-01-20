@@ -12,6 +12,7 @@ import {
   fenToBoard,
   initialBoardFEN,
   squareColors,
+  flipBoard,
 } from './utils/index';
 import { ImportGame, PgnReader, ParsePlayerNames } from './PGNReader/index';
 import { UseBoardArray } from './Hooks/UseBoardArray';
@@ -47,23 +48,6 @@ export default function App() {
     removeBoardArray,
   } = UseBoardArray();
   //--------//
-
-  // In your component, temporarily
-  useEffect(() => {
-    const style = document.createElement('style');
-    style.textContent = `
-    ::view-transition {
-      pointer-events: auto !important;
-      background: red;
-    }
-  `;
-    document.head.appendChild(style);
-    return () => style.remove();
-  }, []);
-
-  useEffect(() => {
-    console.log('fucking stattes', blackCtrlOn, whiteCtrlOn, boardIsFlipped);
-  }, [blackCtrlOn, whiteCtrlOn, boardIsFlipped]);
 
   ///---PGN states---///
   const [currentPgn, setCurrentPgn] = useState('');
@@ -105,6 +89,7 @@ export default function App() {
     },
     animationDurationInMs: 0,
     showAnimations: false,
+    boardOrientation: boardIsFlipped ? 'black' : 'white',
   };
 
   UseUpdateColors(

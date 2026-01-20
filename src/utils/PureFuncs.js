@@ -101,6 +101,15 @@ export function fenToBoard(fenString) {
 
   return board;
 }
+export const flipBoard = fen => {
+  const firstSpaceIndex = fen.indexOf(' ');
+  const firstPart = fen.slice(0, firstSpaceIndex);
+  const rest = fen.slice(firstSpaceIndex);
+
+  const reversedFirstPart = firstPart.split('').reverse().join('');
+
+  return reversedFirstPart + rest;
+};
 
 export const squareToMatrixIndex = square => {
   if (!/^[a-h][1-8]$/.test(square)) {

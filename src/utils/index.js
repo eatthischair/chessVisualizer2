@@ -4,6 +4,7 @@ import {
   boardToFen,
   fenToBoard,
   matrixIndexToChessNotation,
+  flipBoard,
 } from './pureFuncs';
 import { squareColors, initialBoardFEN } from './constants';
 
@@ -13,6 +14,7 @@ export {
   isWhiteSquare,
   boardToFen,
   fenToBoard,
+  flipBoard,
   initialBoardFEN,
   squareColors,
 };
